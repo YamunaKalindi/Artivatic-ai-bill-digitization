@@ -1,32 +1,46 @@
-**Medical Bill Digitization using LayoutLMv3
-**
-**Overview - 
-**
+🏥 Medical Bill Digitization using LayoutLMv3
+📌 Overview
+
 This project presents a layout-aware multimodal transformer-based solution for automated structured extraction from hospital billing documents.
+
 The system is designed to:
+
 Handle diverse hospital bill formats (IPD, OPD, Pharmacy, Diagnostic, Discharge, etc.)
+
 Extract structured schema-aligned fields
+
 Generalize across layout variations
+
 Achieve high accuracy with domain fine-tuning
+
 Maintain low inference cost and fast response time
 
 The architecture was validated using the FUNSD (Form Understanding in Noisy Scanned Documents) dataset, achieving ~80% F1 score using BIO token classification.
 
-**Motivation**
+🧠 Motivation
+
 Traditional OCR + Regex pipelines fail because:
+
 They rely purely on text patterns
+
 They break across layout variations
+
 They cannot generalize to new templates
+
 They require manual rule updates
+
 Hospital bills vary significantly across institutions, making rule-based systems unreliable.
+
 This project instead uses a layout-aware transformer model (LayoutLMv3) that jointly learns:
+
 Textual semantics
+
 2D spatial structure
+
 Visual layout patterns
 
-**Architecture**
+🏗️ Architecture
 End-to-End Pipeline
-
 Input Image
    ↓
 OCR (Token + Bounding Boxes)
@@ -42,20 +56,19 @@ Schema Mapping
 Validation Layer
    ↓
 Structured JSON Output
-
-**Validation on FUNSD Dataset**
+🔬 Validation on FUNSD Dataset
 
 To validate the architecture:
 
-**Dataset**: FUNSD (Noisy scanned forms)
+Dataset: FUNSD (Noisy scanned forms)
 
-**Model**: LayoutLMv3-base
+Model: LayoutLMv3-base
 
-**Training**: Supervised fine-tuning with BIO tagging
+Training: Supervised fine-tuning with BIO tagging
 
-**Evaluation Metric**: Token-level F1 (SeqEval)
+Evaluation Metric: Token-level F1 (SeqEval)
 
-**Result**
+📊 Result
 
 Achieved ~0.80 F1 score
 
@@ -63,7 +76,7 @@ Demonstrates strong layout generalization capability
 
 This confirms robustness on noisy scanned documents with diverse structures.
 
-**Structured JSON Output**
+📦 Structured JSON Output
 
 The system aggregates BIO token predictions into structured spans.
 
@@ -94,23 +107,23 @@ Tax
 
 Line Items
 
-**Accuracy Optimization Strategy (Target ≥95%)**
+🎯 Accuracy Optimization Strategy (Target ≥95%)
 
 To achieve ≥95% field-level accuracy on hospital bills:
 
-**Domain-Specific Fine-Tuning
-**
+1️⃣ Domain-Specific Fine-Tuning
+
 Fine-tune LayoutLMv3 on hospital billing dataset
 
 Schema-specific BIO labels
 
-**Schema-Constrained Decoding**
+2️⃣ Schema-Constrained Decoding
 
 Enforce single-value constraints
 
 Field priority logic
 
-**Numeric Validation Layer**
+3️⃣ Numeric Validation Layer
 
 Subtotal + Tax ≈ Total verification
 
@@ -118,19 +131,19 @@ Currency normalization
 
 Date format validation
 
-**Confidence-Based Filtering**
+4️⃣ Confidence-Based Filtering
 
 Use prediction probabilities
 
 Reject low-confidence fields
 
-**Hybrid Numeric Stabilization (Optional)**
+5️⃣ Hybrid Numeric Stabilization (Optional)
 
 Lightweight rule-based fallback for numeric fields
 
 This hybrid learning + validation approach enables reliable ≥95% structured extraction accuracy.
 
-**Tech Stack**
+⚙️ Tech Stack
 
 Model: LayoutLMv3 (HuggingFace Transformers)
 
@@ -143,8 +156,8 @@ Dataset (Validation Phase): FUNSD
 OCR Layer (Deployment): Pluggable (EasyOCR / Tesseract / Enterprise OCR)
 
 Deployment Plan: TorchScript / ONNX
-**
-Cost Optimization**
+
+💰 Cost Optimization
 
 No external API dependency
 
@@ -156,7 +169,7 @@ Quantization-ready (INT8)
 
 Batch processing support
 
-**Response Time**
+⚡ Response Time
 
 GPU inference: < 500ms per page
 
@@ -164,15 +177,15 @@ CPU inference: ~1–2 seconds per page (optimized)
 
 Scalable to multi-page documents
 
-Training Instructions
+🧪 Training Instructions
 pip install -r requirements.txt
 python train_funsd_layoutlmv3.py
-Inference
+🚀 Inference
 python inference.py --image sample_image.png
 
 Returns structured JSON output.
 
-**Future Enhancements**
+📈 Future Enhancements
 
 Domain adaptation on hospital billing dataset
 
@@ -184,7 +197,7 @@ Active learning for continual improvement
 
 Automated error correction layer
 
-**Conclusion**
+🏁 Conclusion
 
 This project demonstrates a scalable, layout-aware multimodal transformer pipeline for structured document understanding.
 
